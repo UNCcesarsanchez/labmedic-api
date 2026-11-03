@@ -1,0 +1,35 @@
+### Listar plantillas activas
+GET http://localhost:8080/api/plantillas
+
+### Subir plantilla Word (pon tu archivo junto a este .http, ej: hemograma.docx)
+POST http://localhost:8080/api/plantillas
+Content-Type: multipart/form-data; boundary=----LabBoundary
+
+------LabBoundary
+Content-Disposition: form-data; name="codigo"
+
+HEMO
+------LabBoundary
+Content-Disposition: form-data; name="nombre"
+
+Hemograma completo
+------LabBoundary
+Content-Disposition: form-data; name="categoria"
+
+Hematologia
+------LabBoundary
+Content-Disposition: form-data; name="archivo"; filename="hemograma.docx"
+Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+< ./hemograma.docx
+------LabBoundary--
+
+### Generar PDF (cambia el 1 por el id devuelto y usa tus campos)
+POST http://localhost:8080/api/plantillas/1/generar
+Content-Type: application/json
+
+{
+  "nombre_paciente": "Juan Perez",
+  "fecha_toma": "02/11/2026",
+  "hemoglobina": "14.2"
+}
